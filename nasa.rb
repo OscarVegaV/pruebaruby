@@ -18,24 +18,36 @@ end
 
 #en esta parte estamos creando la pagina en index.html para visualizarlo en el navegador
 def buid_web_page(info_hash)
-    
-    File.open('rover_index.html','w') do |file|       
+    File.open('rover_index.html','w') do |file|
         
-        file.puts "<html>
+        file.puts " <!doctype html>
+        <html lang='es'>
         <head>
-        </head>
+        <!-- Required meta tags -->
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>                    
+        <title>Prueba nasa</title>
+        </head>            
         <body>
-        <ul>
-        <li><img src='#{info_hash['photos'][0]['img_src']}'width ='150'</li>
-        <li><img src='#{info_hash['photos'][1]['img_src']}'width ='150'</li>
-        <li><img src='.../398381687EDR_F0030000CCAM05010M_.JPG'></li>
-        </ul>
+        <div class='container parrafo'>
+        <div class='row'>
+        <div class='col span='2' style='background-color:coral'>       
+        <ul>"   
+        
+        info_hash['photos'].each do |photo,id|            
+            file.puts "<h1>'#{photo["camera"]["full_name"]}'</h1>"
+            file.puts "<li><img src='#{photo["img_src"]}'width='150px'></li>"
+            file.puts "<p>'#{photo["id"]}'</p>"
+        end
+        
+        file.puts "</ul>
+        </div>          
+        </div>
+        </div>
         </body>
-        </html>"
+        </html> "
     end      
 end    
 
 nasa_array = request('https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000','hFPjU1q1qeypuMY21pO1KJY8DuLTpTG7zRsj87Rb')
 puts buid_web_page(nasa_array)
-
-
